@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Syed Haseeb - Tech Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,275 +14,498 @@
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
-            color: #ffffff;
-            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
+            background: #f5f7fa;
+            color: #333;
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 30px;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            background: #1f1f1f;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-            position: sticky;
-            top: 20px;
-            height: fit-content;
-        }
-
-        .profile-img {
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: #1a1a1a;
+            position: fixed;
             width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            top: 0;
+            z-index: 1000;
         }
 
-        .name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            color: #00ffff;
-            text-shadow: 0 0 10px #00ffff;
-            margin-top: 20px;
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffd700;
+            text-transform: uppercase;
         }
 
-        .title {
-            font-size: 1.2rem;
-            color: #ff007a;
-            text-shadow: 0 0 5px #ff007a;
+        .navbar .nav-links a {
+            color: #fff;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
         }
 
-        .contact-info p {
-            margin: 10px 0;
-            font-size: 1rem;
-            color: #b0b0b0;
+        .navbar .nav-links a:hover {
+            color: #ffd700;
         }
 
-        .contact-info i {
-            color: #00ffff;
-            margin-right: 10px;
-        }
-
-        .skills h3, .tools h3, .languages h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: #00ffcc;
-            text-shadow: 0 0 10px #00ffcc;
-            margin: 20px 0 10px;
-        }
-
-        .skill-bar {
-            background: #333;
-            border-radius: 20px;
-            height: 10px;
-            margin: 5px 0;
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
             overflow: hidden;
         }
 
-        .skill-level {
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, #00ffff, #ff007a);
-            border-radius: 20px;
-            transition: width 1s ease-in-out;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.2;
         }
 
-        .tool-item, .language-item {
-            background: #2a2a2a;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 10px;
-            text-align: center;
-            color: #00ffff;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: 20px;
-        }
-
-        .section {
-            background: #1f1f1f;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 0 20px rgba(255, 0, 122, 0.3);
-        }
-
-        .section h2 {
-            font-family: 'Orbitron', sans-serif;
-            color: #ff007a;
-            text-shadow: 0 0 10px #ff007a;
+        .hero-content h1 {
+            font-size: 3.5rem;
             margin-bottom: 20px;
+            background: linear-gradient(90deg, #ffd700, #ff6f61);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s infinite alternate;
         }
 
-        .section h5 {
-            color: #00ffff;
-            margin: 15px 0 5px;
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #ddd;
         }
 
-        .section p {
-            color: #b0b0b0;
+        .hero-content .btn {
+            padding: 15px 30px;
+            background: #ffd700;
+            color: #1a1a1a;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .date {
-            color: #ff007a;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
+        .hero-content .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
         }
 
-        .tags span {
-            background: #00ffff;
-            color: #1f1f1f;
+        /* About Section */
+        .about {
+            padding: 80px 50px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .about-content img {
+            width: 200px;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-content p {
+            max-width: 600px;
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 80px 50px;
+            background: #f5f7fa;
+            text-align: center;
+        }
+
+        .projects h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #1a1a1a;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin: 20px;
+            color: #1a1a1a;
+        }
+
+        .project-card p {
+            margin: 0 20px 20px;
+            color: #666;
+        }
+
+        .project-card .tags {
+            margin: 0 20px 20px;
+        }
+
+        .project-card .tags span {
+            background: #ffd700;
+            color: #1a1a1a;
             padding: 5px 10px;
             border-radius: 20px;
             margin-right: 10px;
-            font-size: 0.8rem;
-            box-shadow: 0 0 5px #00ffff;
+            font-size: 0.9rem;
         }
 
-        .load-more {
-            display: block;
-            text-align: center;
-            padding: 15px;
-            background: linear-gradient(90deg, #00ffff, #ff007a);
-            border-radius: 10px;
-            color: #1f1f1f;
-            font-weight: bold;
+        .view-all {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 15px 30px;
+            background: #1a1a1a;
+            color: #fff;
             text-decoration: none;
-            margin-top: 20px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            border-radius: 50px;
+            font-weight: 600;
+            transition: background 0.3s;
         }
 
-        .load-more:hover {
-            box-shadow: 0 0 25px rgba(255, 0, 122, 0.8);
+        .view-all:hover {
+            background: #ffd700;
+            color: #1a1a1a;
         }
 
-        /* Footer */
-        footer {
+        /* Services Section */
+        .services {
+            padding: 80px 50px;
+            background: #fff;
             text-align: center;
-            padding: 20px;
-            background: #1f1f1f;
-            margin-top: 30px;
-            border-top: 2px solid #00ffff;
         }
 
-        footer a {
-            color: #00ffff;
-            margin: 0 15px;
+        .services h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #1a1a1a;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: #f5f7fa;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
             font-size: 1.5rem;
-            text-shadow: 0 0 10px #00ffff;
+            margin-bottom: 10px;
+            color: #1a1a1a;
         }
 
-        footer a:hover {
-            color: #ff007a;
-            text-shadow: 0 0 15px #ff007a;
+        .service-card p {
+            color: #666;
+        }
+
+        /* Skills Section */
+        .skills {
+            padding: 80px 50px;
+            background: #f5f7fa;
+            text-align: center;
+        }
+
+        .skills h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #1a1a1a;
+        }
+
+        .skill-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .skill-item {
+            background: #ffd700;
+            color: #1a1a1a;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 80px 50px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .faq h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #1a1a1a;
+        }
+
+        .faq-item {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            text-align: left;
+        }
+
+        .faq-item summary {
+            font-size: 1.2rem;
+            color: #1a1a1a;
+            cursor: pointer;
+            padding: 10px;
+            background: #f5f7fa;
+            border-radius: 5px;
+        }
+
+        .faq-item p {
+            padding: 10px;
+            color: #666;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 50px;
+            background: #f5f7fa;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #666;
+        }
+
+        .contact .btn {
+            padding: 15px 30px;
+            background: #ffd700;
+            color: #1a1a1a;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .contact .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Animations */
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px #ffd700, 0 0 20px #ff6f61; }
+            100% { text-shadow: 0 0 20px #ffd700, 0 0 30px #ff6f61; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
         @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
+            .navbar {
+                padding: 20px;
             }
 
-            .sidebar {
-                position: static;
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .project-grid, .service-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <img src="pprofile.jpg" alt="Syed Haseeb" class="profile-img">
-            <h1 class="name">Syed Haseeb</h1>
-            <p class="title">Technologist</p>
-            <div class="contact-info">
-                <p><i class="fas fa-home"></i> Islamabad, Pakistan</p>
-                <p><i class="fas fa-envelope"></i> syedhaseeb16@gmail.com</p>
-                <p><i class="fas fa-phone"></i> +92 315 1543724</p>
-            </div>
-            <div class="skills">
-                <h3>Skills</h3>
-                <p>Laravel</p><div class="skill-bar"><div class="skill-level" style="width: 70%;"></div></div>
-                <p>Core/Custom PHP/Ajax</p><div class="skill-bar"><div class="skill-level" style="width: 90%;"></div></div>
-                <p>React Js/Redux</p><div class="skill-bar"><div class="skill-level" style="width: 80%;"></div></div>
-                <p>Node Js</p><div class="skill-bar"><div class="skill-level" style="width: 70%;"></div></div>
-                <p>SQL</p><div class="skill-bar"><div class="skill-level" style="width: 70%;"></div></div>
-                <p>Data Scraping</p><div class="skill-bar"><div class="skill-level" style="width: 85%;"></div></div>
-                <p>Problem Solving</p><div class="skill-bar"><div class="skill-level" style="width: 90%;"></div></div>
-            </div>
-            <div class="tools">
-                <h3>Tools/Apps Used</h3>
-                <div class="tool-item">Clickup</div>
-                <div class="tool-item">Jira</div>
-                <div class="tool-item">Slack</div>
-                <div class="tool-item">Visual Studio Code</div>
-                <div class="tool-item">Adobe Photoshop</div>
-            </div>
-            <div class="languages">
-                <h3>Languages</h3>
-                <div class="language-item">English - 80%</div>
-                <div class="language-item">Urdu - 95%</div>
-                <div class="language-item">Punjabi - 70%</div>
-            </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">SYED HASEEB</div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#services">Services</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
         </div>
+    </nav>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <div class="section">
-                <h2>Career Summary</h2>
-                <p>I have 4 years of experience in Web Development as a Full Stack Web Developer. My passion is to develop an advanced career as a software developer. I hold a Bachelor's degree in Computer Science (BS(CS)) from 2015 and an MS(CS) from Comsats Wah Cantt. Currently, I am working with advanced web technologies like Node.js, React, and Angular.</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Building Scalable Web Apps with Modern Technologies</h1>
+            <p>Hi, my name is Syed Haseeb. I'm a Full Stack Web Developer passionate about creating innovative solutions.</p>
+            <a href="#contact" class="btn">Contact Me</a>
+            <a href="resume.pdf" class="btn" style="margin-left: 20px;">Get Resume</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2>Who Am I?</h2>
+        <div class="about-content">
+            <img src="pprofile.jpg" alt="Syed Haseeb">
+            <p>I have 4 years of experience in Web Development as a Full Stack Web Developer. My passion is to develop an advanced career as a software developer. I hold a Bachelor's degree in Computer Science (BS(CS)) from 2015 and an MS(CS) from Comsats Wah Cantt. Currently, I am working with advanced web technologies like Node.js, React, and Angular.</p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <h2>Latest Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <img src="https://via.placeholder.com/300x200" alt="Buraak Taxi Service">
+                <h3>Buraak Taxi Service</h3>
+                <p>A taxi service app with an admin dashboard built in React.js, operating in various cities in Pakistan.</p>
+                <div class="tags">
+                    <span>Node.js</span>
+                    <span>React.js</span>
+                </div>
             </div>
-
-            <div class="section">
-                <h2>Work Experience</h2>
-                <h5>Senior Web Developer & Team Lead - IVY Interactive Solutions</h5>
-                <p class="date">Feb 2022 - Present</p>
-                <p>Leading a team and developing cutting-edge web solutions.</p>
-                <h5>Full Stack Developer - ToyCycle NUST (NSTP)</h5>
-                <p class="date">Feb 2020 - Feb 2022</p>
-                <p>Worked with Laravel, React.js, and Node.js on innovative projects.</p>
-                <h5>Lecturer Computer Science - Comsats Wah Campus</h5>
-                <p class="date">2019 - Jan 2020</p>
-                <p>Taught Web Technologies including BS4, HTML5, and Laravel.</p>
-            </div>
-
-            <div class="section">
-                <h2>Education</h2>
-                <h5>MS in Computer Sciences - Comsats, Wah Cantt</h5>
-                <p class="date">Graduated 2018</p>
-                <h5>BS in Computer Sciences - University of Wah</h5>
-                <p class="date">Graduated 2015</p>
-            </div>
-
-            <div class="section">
-                <h2>Portfolio</h2>
-                <h5>Buraak Taxi Service - <a href="https://buraak.org/" style="color: #00ffff;">buraak.org</a></h5>
-                <p>A taxi service app with an admin dashboard built in React.js.</p>
-                <div class="tags"><span>Node.js</span><span>React.js</span></div>
-                <h5>Psx Alert - <a href="https://psxalert.com/" style="color: #00ffff;">psxalert.com</a></h5>
+            <div class="project-card">
+                <img src="https://via.placeholder.com/300x200" alt="Psx Alert">
+                <h3>Psx Alert</h3>
                 <p>Real-time stock tracking and alert system for Pakistan Stock Exchange.</p>
-                <div class="tags"><span>React.js</span><span>Node.js</span><span>Python</span></div>
-                <a href="port.html" class="load-more">Load More Projects</a>
+                <div class="tags">
+                    <span>React.js</span>
+                    <span>Node.js</span>
+                    <span>Python</span>
+                </div>
             </div>
         </div>
-    </div>
+        <a href="port.html" class="view-all">View All Projects</a>
+    </section>
 
-    <footer>
-        <p>Connect with me:</p>
-        <a href="https://web.facebook.com/ssirsydain/"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://www.instagram.com/syedhaseeb16/"><i class="fab fa-instagram"></i></a>
-        <a href="https://twitter.com/syedhaseeb16"><i class="fab fa-twitter"></i></a>
-        <a href="https://www.linkedin.com/in/syed-haseeb-83a0157a/"><i class="fab fa-linkedin-in"></i></a>
-    </footer>
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2>Explore My Services</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <i class="fas fa-code"></i>
+                <h3>Web Development</h3>
+                <p>Building custom, scalable web applications using modern technologies like React, Node.js, and Laravel.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-server"></i>
+                <h3>Backend Development</h3>
+                <p>Creating robust backend systems with Node.js, NestJS, and database management using SQL and PostgreSQL.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-paint-brush"></i>
+                <h3>Graphic Design</h3>
+                <p>Designing stunning visuals using Adobe Photoshop for web and print media.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <h2>I Work With</h2>
+        <div class="skill-grid">
+            <div class="skill-item">Laravel</div>
+            <div class="skill-item">React.js</div>
+            <div class="skill-item">Node.js</div>
+            <div class="skill-item">SQL</div>
+            <div class="skill-item">Git</div>
+            <div class="skill-item">Adobe Photoshop</div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <details class="faq-item">
+            <summary>What services do you offer?</summary>
+            <p>I offer full-stack web development, backend development, and graphic design services using modern technologies.</p>
+        </details>
+        <details class="faq-item">
+            <summary>How can I contact you for a project?</summary>
+            <p>You can reach me via email at syedhaseeb16@gmail.com or through the contact section below.</p>
+        </details>
+        <details class="faq-item">
+            <summary>What is your pricing model?</summary>
+            <p>My pricing depends on the project scope. Contact me for a detailed quote.</p>
+        </details>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2>Let's Build Something Amazing...</h2>
+        <p>Have a project in mind? I'm here to help you create exceptional solutions that leave a lasting impression.</p>
+        <a href="mailto:syedhaseeb16@gmail.com" class="btn">Start a Project</a>
+        <a href="https://github.com/syedhaseeb16" class="btn" style="margin-left: 20px;">View Github</a>
+    </section>
 </body>
 </html>
