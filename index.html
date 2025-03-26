@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syed Haseeb - Tech Portfolio</title>
+    <title>Syed Haseeb - Futuristic Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,10 +14,11 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: #f5f7fa;
-            color: #333;
+            font-family: 'Roboto Mono', monospace;
+            background: #0d0d0d;
+            color: #e0e0e0;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         /* Navigation */
@@ -25,42 +26,45 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 50px;
-            background: #1a1a1a;
+            padding: 20px 60px;
+            background: rgba(10, 10, 10, 0.9);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
         }
 
         .navbar .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #ffd700;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: #00ffcc;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #00ffcc;
         }
 
         .navbar .nav-links a {
-            color: #fff;
-            margin-left: 20px;
+            color: #e0e0e0;
+            margin-left: 30px;
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
+            font-size: 1rem;
+            transition: color 0.3s, text-shadow 0.3s;
         }
 
         .navbar .nav-links a:hover {
-            color: #ffd700;
+            color: #ff007a;
+            text-shadow: 0 0 10px #ff007a;
         }
 
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+            background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: #fff;
             position: relative;
             overflow: hidden;
         }
@@ -68,211 +72,241 @@
         .hero::before {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.2;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1), transparent);
+            animation: rotate 20s linear infinite;
         }
 
         .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(90deg, #ffd700, #ff6f61);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            background: linear-gradient(90deg, #00ffcc, #ff007a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: glow 2s infinite alternate;
+            text-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+            animation: glitch 3s infinite;
         }
 
         .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: #ddd;
+            font-size: 1.3rem;
+            color: #b0b0b0;
+            margin: 20px 0 40px;
         }
 
         .hero-content .btn {
-            padding: 15px 30px;
-            background: #ffd700;
-            color: #1a1a1a;
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid #00ffcc;
+            color: #00ffcc;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
             font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
         }
 
         .hero-content .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+            background: #00ffcc;
+            color: #0d0d0d;
+            box-shadow: 0 0 20px #00ffcc;
         }
 
         /* About Section */
         .about {
-            padding: 80px 50px;
-            background: #fff;
+            padding: 100px 60px;
+            background: #1a1a1a;
             text-align: center;
+            position: relative;
         }
 
         .about h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #1a1a1a;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            color: #ff007a;
+            text-shadow: 0 0 15px #ff007a;
+            margin-bottom: 40px;
         }
 
         .about-content {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 50px;
-            margin-top: 40px;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .about-content img {
-            width: 200px;
+            width: 250px;
             border-radius: 50%;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border: 3px solid #00ffcc;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .about-content img:hover {
+            transform: scale(1.05);
         }
 
         .about-content p {
-            max-width: 600px;
             font-size: 1.1rem;
-            color: #666;
+            color: #b0b0b0;
+            max-width: 600px;
         }
 
         /* Projects Section */
         .projects {
-            padding: 80px 50px;
-            background: #f5f7fa;
+            padding: 100px 60px;
+            background: #0d0d0d;
             text-align: center;
         }
 
         .projects h2 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            color: #1a1a1a;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            color: #00ffcc;
+            text-shadow: 0 0 15px #00ffcc;
+            margin-bottom: 50px;
         }
 
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .project-card {
-            background: #fff;
+            background: #1a1a1a;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
         }
 
         .project-card img {
             width: 100%;
             height: 200px;
             object-fit: cover;
+            filter: brightness(80%);
         }
 
         .project-card h3 {
-            font-size: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            color: #ff007a;
             margin: 20px;
-            color: #1a1a1a;
         }
 
         .project-card p {
             margin: 0 20px 20px;
-            color: #666;
-        }
-
-        .project-card .tags {
-            margin: 0 20px 20px;
+            color: #b0b0b0;
         }
 
         .project-card .tags span {
-            background: #ffd700;
-            color: #1a1a1a;
-            padding: 5px 10px;
+            background: transparent;
+            border: 1px solid #00ffcc;
+            color: #00ffcc;
+            padding: 5px 15px;
             border-radius: 20px;
-            margin-right: 10px;
+            margin: 0 10px 20px 0;
+            display: inline-block;
             font-size: 0.9rem;
         }
 
         .view-all {
             display: inline-block;
-            margin-top: 40px;
-            padding: 15px 30px;
-            background: #1a1a1a;
-            color: #fff;
+            margin-top: 50px;
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid #ff007a;
+            color: #ff007a;
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: background 0.3s;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            transition: all 0.3s;
         }
 
         .view-all:hover {
-            background: #ffd700;
-            color: #1a1a1a;
+            background: #ff007a;
+            color: #0d0d0d;
+            box-shadow: 0 0 20px #ff007a;
         }
 
         /* Services Section */
         .services {
-            padding: 80px 50px;
-            background: #fff;
+            padding: 100px 60px;
+            background: #1a1a1a;
             text-align: center;
         }
 
         .services h2 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            color: #1a1a1a;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            color: #00ffcc;
+            text-shadow: 0 0 15px #00ffcc;
+            margin-bottom: 50px;
         }
 
         .service-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .service-card {
-            background: #f5f7fa;
-            padding: 30px;
+            background: #0d0d0d;
+            padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 0 20px rgba(255, 0, 122, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .service-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px);
+            box-shadow: 0 0 30px rgba(255, 0, 122, 0.3);
         }
 
         .service-card i {
-            font-size: 2.5rem;
-            color: #ffd700;
+            font-size: 3rem;
+            color: #ff007a;
             margin-bottom: 20px;
+            text-shadow: 0 0 10px #ff007a;
         }
 
         .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: #1a1a1a;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            color: #e0e0e0;
+            margin-bottom: 15px;
         }
 
         .service-card p {
-            color: #666;
+            color: #b0b0b0;
         }
 
         /* Skills Section */
         .skills {
-            padding: 80px 50px;
-            background: #f5f7fa;
+            padding: 100px 60px;
+            background: #0d0d0d;
             text-align: center;
         }
 
         .skills h2 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            color: #1a1a1a;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            color: #ff007a;
+            text-shadow: 0 0 15px #ff007a;
+            margin-bottom: 50px;
         }
 
         .skill-grid {
@@ -280,99 +314,137 @@
             justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .skill-item {
-            background: #ffd700;
-            color: #1a1a1a;
+            background: transparent;
+            border: 2px solid #00ffcc;
+            color: #00ffcc;
             padding: 15px 30px;
-            border-radius: 50px;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
             font-weight: 600;
             animation: pulse 2s infinite;
+            transition: all 0.3s;
+        }
+
+        .skill-item:hover {
+            background: #00ffcc;
+            color: #0d0d0d;
+            box-shadow: 0 0 20px #00ffcc;
         }
 
         /* FAQ Section */
         .faq {
-            padding: 80px 50px;
-            background: #fff;
+            padding: 100px 60px;
+            background: #1a1a1a;
             text-align: center;
         }
 
         .faq h2 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            color: #1a1a1a;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            color: #00ffcc;
+            text-shadow: 0 0 15px #00ffcc;
+            margin-bottom: 50px;
         }
 
         .faq-item {
             max-width: 800px;
             margin: 0 auto 20px;
             text-align: left;
+            background: #0d0d0d;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         .faq-item summary {
+            font-family: 'Orbitron', sans-serif;
             font-size: 1.2rem;
-            color: #1a1a1a;
+            color: #ff007a;
             cursor: pointer;
-            padding: 10px;
-            background: #f5f7fa;
-            border-radius: 5px;
+            padding: 15px;
+            background: #1a1a1a;
+            transition: background 0.3s;
+        }
+
+        .faq-item summary:hover {
+            background: #ff007a;
+            color: #0d0d0d;
         }
 
         .faq-item p {
-            padding: 10px;
-            color: #666;
+            padding: 15px;
+            color: #b0b0b0;
         }
 
         /* Contact Section */
         .contact {
-            padding: 80px 50px;
-            background: #f5f7fa;
+            padding: 100px 60px;
+            background: #0d0d0d;
             text-align: center;
         }
 
         .contact h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #1a1a1a;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            color: #ff007a;
+            text-shadow: 0 0 15px #ff007a;
+            margin-bottom: 30px;
         }
 
         .contact p {
             font-size: 1.2rem;
+            color: #b0b0b0;
             margin-bottom: 40px;
-            color: #666;
         }
 
         .contact .btn {
-            padding: 15px 30px;
-            background: #ffd700;
-            color: #1a1a1a;
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid #00ffcc;
+            color: #00ffcc;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
             font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
         }
 
         .contact .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+            background: #00ffcc;
+            color: #0d0d0d;
+            box-shadow: 0 0 20px #00ffcc;
         }
 
         /* Animations */
-        @keyframes glow {
-            0% { text-shadow: 0 0 10px #ffd700, 0 0 20px #ff6f61; }
-            100% { text-shadow: 0 0 20px #ffd700, 0 0 30px #ff6f61; }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
         }
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.05); }
             100% { transform: scale(1); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         @media (max-width: 768px) {
             .navbar {
                 padding: 20px;
+                flex-direction: column;
+                gap: 20px;
             }
 
             .hero-content h1 {
@@ -381,6 +453,7 @@
 
             .about-content {
                 flex-direction: column;
+                gap: 30px;
             }
 
             .project-grid, .service-grid {
