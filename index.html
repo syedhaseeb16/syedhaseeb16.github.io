@@ -1,467 +1,225 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syed Haseeb - Tech Desktop Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            height: 100vh;
-            overflow: hidden;
-            background: linear-gradient(135deg, #1E3A8A, #6B7280);
-            position: relative;
-        }
-        /* Login Screen */
-        #login-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(30, 58, 138, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            z-index: 1000;
-            transition: opacity 0.5s;
-        }
-        #login-screen.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        .login-content {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-        }
-        .login-content img {
-            width: 150px;
-            border-radius: 50%;
-            border: 3px solid #60A5FA;
-            margin-bottom: 20px;
-        }
-        .login-content h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px #60A5FA;
-        }
-        .login-content button {
-            padding: 12px 40px;
-            font-size: 1.2rem;
-            background: #60A5FA;
-            color: #fff;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .login-content button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px #60A5FA;
-        }
-        /* Desktop */
-        #desktop {
-            height: calc(100vh - 50px);
-            padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-        .icon {
-            width: 100px;
-            text-align: center;
-            color: #fff;
-            text-shadow: 1px 1px 3px #000;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .icon:hover {
-            transform: scale(1.1);
-        }
-        .icon i {
-            font-size: 3.5rem;
-            margin-bottom: 8px;
-            color: #60A5FA;
-            text-shadow: 0 0 10px #60A5FA;
-        }
-        .icon p {
-            font-size: 0.9rem;
-        }
-        /* Windows */
-        .window {
-            position: absolute;
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            display: none;
-            width: 700px;
-            max-height: 80vh;
-            overflow-y: auto;
-            border: 1px solid #E5E7EB;
-        }
-        .window.active {
-            display: block;
-        }
-        .window-header {
-            background: #1E3A8A;
-            color: #fff;
-            padding: 10px 15px;
-            border-radius: 15px 15px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: move;
-        }
-        .window-header button {
-            background: #EF4444;
-            border: none;
-            color: #fff;
-            font-size: 1rem;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .window-header button:hover {
-            background: #DC2626;
-        }
-        .window-content {
-            padding: 25px;
-            text-align: center;
-            color: #1F2937;
-        }
-        .window-content h2 {
-            color: #1E3A8A;
-            margin-bottom: 20px;
-        }
-        .window-content img {
-            width: 150px;
-            border-radius: 50%;
-            border: 3px solid #60A5FA;
-            margin-bottom: 20px;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .card {
-            background: #F9FAFB;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .card h3 {
-            color: #1E3A8A;
-            margin-bottom: 10px;
-        }
-        /* Taskbar */
-        #taskbar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            height: 50px;
-            background: rgba(30, 58, 138, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 20px;
-            backdrop-filter: blur(10px);
-        }
-        #start-btn {
-            background: #60A5FA;
-            padding: 8px 20px;
-            border-radius: 25px;
-            color: #fff;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        #start-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px #60A5FA;
-        }
-        #clock {
-            position: absolute;
-            right: 20px;
-            font-size: 1rem;
-            color: #fff;
-        }
-        /* Start Menu */
-        #start-menu {
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            display: none;
-            padding: 15px;
-        }
-        #start-menu.active {
-            display: block;
-        }
-        #start-menu a {
-            display: block;
-            padding: 10px;
-            color: #1E3A8A;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: background 0.3s;
-        }
-        #start-menu a:hover {
-            background: #E5E7EB;
-        }
-        /* Gadgets */
-        #calculator {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-        #calculator input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border: 1px solid #D1D5DB;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Syed Haseeb — Linux-Style Portfolio</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:monospace, monospace; background:#0b0f12;color:#d9e2ec;overflow:auto}
+    .desktop{min-height:100vh;display:flex;flex-direction:column;padding:12px;gap:12px;background:#071021}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#111;border-radius:6px;position:sticky;top:0;z-index:10}
+    .topbar .brand{display:flex;gap:10px;align-items:center}
+    .logo{width:40px;height:40px;border-radius:50%;background:#0ea5a4;overflow:hidden}
+    .logo img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+    .brand h1{font-size:14px}
+    .tray{display:flex;gap:6px;align-items:center}
+    .tray button{background:#1a1a1a;border:1px solid #333;color:inherit;padding:4px 8px;border-radius:4px;cursor:pointer;font-size:12px}
+    .workspace{flex:1;display:flex;gap:12px;overflow:visible}
+    .sidebar{width:200px;background:#111;border-radius:6px;padding:10px;display:flex;flex-direction:column;gap:10px;font-size:13px;flex-shrink:0}
+    .name{font-weight:700;font-size:14px;margin-top:4px}
+    .meta{font-size:12px;color:#9fb0c2}
+    .side-links{margin-top:10px;display:flex;flex-direction:column;gap:4px}
+    .side-links a{padding:6px;border-radius:4px;text-decoration:none;color:inherit;background:#1a1a1a;border:1px solid #222;font-size:12px}
+    .main{flex:1;display:flex;flex-direction:column;gap:20px;min-width:0}
+    .window{width:100%;background:#111;border-radius:6px;border:1px solid #222;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.6);position:relative}
+    .win-title{display:flex;align-items:center;gap:6px;padding:6px 8px;background:#222;border-bottom:1px solid #333}
+    .controls{display:flex;gap:6px}
+    .control{width:10px;height:10px;border-radius:50%;display:inline-block}
+    .c-close{background:#ff5f56}
+    .c-min{background:#ffbd2e}
+    .c-max{background:#27c93f}
+    .win-title h3{flex:1;font-size:13px}
+    .win-body{padding:16px;font-size:13px;line-height:1.8}
+    .projects{display:flex;flex-direction:column;gap:14px}
+    .project{padding:14px;background:#1a1a1a;border-radius:4px;border:1px solid #222}
+    .rightcol{width:260px;background:#111;border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:10px;font-size:12px;flex-shrink:0}
+    .section{background:#1a1a1a;padding:10px;border-radius:4px;border:1px solid #222}
+    .section h4{font-size:12px;margin-bottom:6px}
+    .skill-list{display:flex;flex-wrap:wrap;gap:6px}
+    .skill{font-size:11px;padding:4px 6px;border-radius:4px;background:#222}
+    .terminal{height:150px;background:#000;border-radius:6px;padding:10px;font-family:monospace;font-size:12px;color:#9fb0c2;overflow:auto}
+    .separator{margin:14px 0;border-bottom:1px dashed #333}
+    @media (max-width:900px){.sidebar{display:none}.rightcol{display:none}}
+  </style>
 </head>
 <body>
-    <!-- Login Screen -->
-    <div id="login-screen">
-        <div class="login-content">
-            <img src="pprofile.jpg" alt="Syed Haseeb">
-            <h1>Welcome, Syed Haseeb</h1>
-            <button onclick="login()">Enter Portfolio</button>
-        </div>
+  <div class="desktop">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo"><img src="your-photo.jpg" alt="Profile Photo"></div>
+        <h1>Syed Haseeb — Portfolio</h1>
+      </div>
+      <div class="tray">
+        <button id="downloadCV">CV</button>
+        <button onclick="openWindow('projects')">Projects</button>
+        <button onclick="openWindow('experience')">Experience</button>
+        <button onclick="openWindow('education')">Education</button>
+      </div>
     </div>
 
-    <!-- Desktop -->
-    <div id="desktop">
-        <div class="icon" onclick="openWindow('about')"><i class="fas fa-user"></i><p>About Me</p></div>
-        <div class="icon" onclick="openWindow('projects')"><i class="fas fa-folder"></i><p>Projects</p></div>
-        <div class="icon" onclick="openWindow('skills')"><i class="fas fa-tools"></i><p>Skills</p></div>
-        <div class="icon" onclick="openWindow('services')"><i class="fas fa-briefcase"></i><p>Services</p></div>
-        <div class="icon" onclick="openWindow('contact')"><i class="fas fa-envelope"></i><p>Contact</p></div>
-        <div class="icon" onclick="alert('Music Player coming soon!')"><i class="fas fa-music"></i><p>Music</p></div>
-    </div>
+    <div class="workspace">
+      <aside class="sidebar">
+        <div class="name">Syed Haseeb‑ul‑Hussan</div>
+        <div class="meta">Backend • DevOps • Team Lead</div>
+        <div class="side-links">
+          <a href="#" onclick="openWindow('projects')">Projects</a>
+          <a href="#" onclick="openWindow('experience')">Experience</a>
+          <a href="#" onclick="openWindow('education')">Education</a>
+          <a href="#" onclick="openWindow('contact')">Contact</a>
+          <a href="#" onclick="scrollToTerminal()">Terminal</a>
+        </div>
+      </aside>
 
-    <!-- Windows -->
-    <div id="about" class="window" style="top: 50px; left: 50px;">
-        <div class="window-header">
-            <span>About Me</span>
-            <button onclick="closeWindow('about')">✖</button>
-        </div>
-        <div class="window-content">
-            <img src="pprofile.jpg" alt="Syed Haseeb">
-            <h2>Syed Haseeb</h2>
-            <p>Full Stack Web Developer with 4+ years of experience. BS(CS) 2015, MS(CS) from Comsats Wah Cantt. I specialize in building scalable, modern web solutions.</p>
-        </div>
-    </div>
-
-    <div id="projects" class="window" style="top: 80px; left: 80px;">
-        <div class="window-header">
-            <span>Projects</span>
-            <button onclick="closeWindow('projects')">✖</button>
-        </div>
-        <div class="window-content">
-            <h2>My Projects</h2>
-            <div class="grid">
-    <div class="card"><h3>Targets</h3><p>Sales & supply chain system. <a href="https://targetslive.co">Visit</a></p><p>Tech: Node.js, React.js</p></div>
-    <div class="card"><h3>Buraak Taxi Service</h3><p>Taxi app with React dashboard. <a href="https://buraak.org">Visit</a></p><p>Tech: Node.js, React.js</p></div>
-    <div class="card"><h3>Xtrasoft DVD Store</h3><p>DVD management. <a href="https://templates.xtrasoft.eu">Visit</a></p><p>Tech: PHP, MySQL</p></div>
-    <div class="card"><h3>Psx Alert</h3><p>Stock tracker. <a href="https://psxalert.com">Visit</a></p><p>Tech: Node.js, Python</p></div>
-    <div class="card"><h3>Invoice Maker</h3><p>Invoicing app. <a href="https://play.google.com/store/apps/details?id=com.invoiceslab.invoice">Visit</a></p><p>Tech: Node.js, Python</p></div>
-    <div class="card"><h3>Free Vector</h3><p>Vector files for CNC. <a href="https://quicccs.com">Visit</a></p><p>Tech: Laravel, Bootstrap</p></div>
-    <div class="card"><h3>Lit Street TV</h3><p>Artist video platform. <a href="https://www.litstreet.tv">Visit</a></p><p>Tech: PHP, Bootstrap</p></div>
-    <div class="card"><h3>Scraping Scripts</h3><p>Web crawlers.</p><p>Tech: PHP, Node.js (Puppeteer)</p></div>
-    <div class="card"><h3>Alcukovic App</h3><p>Body measurement tracker. <a href="http://alcukovic.com">Visit</a></p><p>Tech: Highcharts, PHP</p></div>
-    <div class="card"><h3>Twitter Bot</h3><p>Tweets sports data. <a href="https://github.com/syedhaseeb16/tweeterbot.git">GitHub</a></p><p>Tech: PHP, Highcharts</p></div>
-    <div class="card"><h3>Concise 5</h3><p>Mobile app for enterprises to explore new technologies. Tagline: "Learn Tech, Lead Change." <a href="#">Visit</a></p><p>Tech: Node.js, React, React Native, MySQL, AWS, GCP</p></div>
-    <div class="card"><h3>Dubai Parking System</h3><p>Mobile app for parking management, including user payments, gate control, and space tracking. <a href="#">Visit</a></p><p>Tech: NestJS, AWS, React.js, PostgreSQL</p></div>
-    <div class="card"><h3>Quri</h3><p>Order and payment system for restaurants, integrated with POS for QR-based menu and order management. <a href="https://quri.co">Visit</a></p><p>Tech: Node.js, React.js</p></div>
-    <div class="card"><h3>Appender</h3><p>Private tool to scrape and automate US phone number data, saved to files with a React dashboard. <a href="#">Visit</a></p><p>Tech: Node.js, React</p></div>
-    <div class="card"><h3>Tasali</h3><p>Product verification app using specialized HD QR codes to confirm authenticity. <a href="#">Visit</a></p><p>Tech: Node.js, React</p></div>
-    <div class="card"><h3>Awesome Tching</h3><p>Website for design, photography, and editing services to attract clients. <a href="https://awesometching.com">Visit</a></p><p>Tech: PHP, JavaScript</p></div>
-</div>
-        </div>
-    </div>
-
-    <div id="skills" class="window" style="top: 100px; left: 100px;">
-        <div class="window-header">
-            <span>Skills</span>
-            <button onclick="closeWindow('skills')">✖</button>
-        </div>
-        <div class="window-content">
-            <h2>My Skills</h2>
-            <div class="grid">
-                <div class="card"><h3>Node.js</h3></div>
-                <div class="card"><h3>React.js</h3></div>
-                <div class="card"><h3>Laravel</h3></div>
-                <div class="card"><h3>PHP</h3></div>
-                <div class="card"><h3>Python</h3></div>
-                <div class="card"><h3>SQL</h3></div>
-                <div class="card"><h3>Git</h3></div>
-                <div class="card"><h3>Photoshop</h3></div>
+      <main class="main">
+        <section class="window" id="projects-window">
+          <div class="win-title">
+            <div class="controls">
+              <span class="control c-close" data-window="projects-window" onclick="closeWin(event)"></span>
+              <span class="control c-min" data-window="projects-window" onclick="minimizeWin(event)"></span>
+              <span class="control c-max" data-window="projects-window" onclick="maximizeWin(event)"></span>
             </div>
-        </div>
-    </div>
+            <h3>Projects</h3>
+          </div>
+          <div class="win-body">
+            <div class="projects" id="projectsList"></div>
+          </div>
+        </section>
 
-    <div id="services" class="window" style="top: 120px; left: 120px;">
-        <div class="window-header">
-            <span>Services</span>
-            <button onclick="closeWindow('services')">✖</button>
-        </div>
-        <div class="window-content">
-            <h2>My Services</h2>
-            <div class="grid">
-                <div class="card"><h3>Web Development</h3><p>Custom apps with React & Node.js.</p></div>
-                <div class="card"><h3>Backend Development</h3><p>Robust systems with SQL.</p></div>
-                <div class="card"><h3>Graphic Design</h3><p>Visuals with Photoshop.</p></div>
+        <section class="window" id="experience-window">
+          <div class="win-title">
+            <div class="controls">
+              <span class="control c-close" data-window="experience-window" onclick="closeWin(event)"></span>
+              <span class="control c-min" data-window="experience-window" onclick="minimizeWin(event)"></span>
+              <span class="control c-max" data-window="experience-window" onclick="maximizeWin(event)"></span>
             </div>
+            <h3>Experience</h3>
+          </div>
+          <div class="win-body">
+            <h4>MultiSyn Tech — Team Lead, Backend (2023 – 2025)</h4>
+            <p>Led a team of developers delivering scalable backend systems. Responsible for architecture planning, code reviews, and DevOps oversight.</p>
+            <ul>
+              <li>Guided team through full software development lifecycle.</li>
+              <li>Worked with Node.js, NestJS, PostgreSQL, and AWS.</li>
+              <li>Mentored junior developers and ensured project delivery on time.</li>
+            </ul>
+            <div class="separator"></div>
+
+            <h4>IVY Interactive Solutions — Senior Node.js Developer (2022 – 2023)</h4>
+            <p>Focused on building efficient APIs and improving backend scalability.</p>
+            <ul>
+              <li>Developed REST APIs and integrated with frontend/mobile systems.</li>
+              <li>Optimized database queries and reduced response times.</li>
+              <li>Implemented CI/CD pipelines for automation.</li>
+            </ul>
+            <div class="separator"></div>
+
+            <h4>Heuristify / NSTP — Backend Developer (2020 – 2022)</h4>
+            <p>Worked on multiple backend modules supporting education and research platforms.</p>
+            <ul>
+              <li>Developed Node.js services with MongoDB.</li>
+              <li>Deployed applications on Ubuntu servers.</li>
+              <li>Ensured system security and uptime.</li>
+            </ul>
+            <div class="separator"></div>
+
+            <h4>Sir Syed Educational Institute — IT Manager (2016 – 2019)</h4>
+            <p>Managed IT infrastructure for an educational institute.</p>
+            <ul>
+              <li>Oversaw networking and server maintenance.</li>
+              <li>Upgraded systems and introduced new technologies.</li>
+              <li>Provided training and ongoing support to staff and students.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="window" id="education-window">
+          <div class="win-title">
+            <div class="controls">
+              <span class="control c-close" data-window="education-window" onclick="closeWin(event)"></span>
+              <span class="control c-min" data-window="education-window" onclick="minimizeWin(event)"></span>
+              <span class="control c-max" data-window="education-window" onclick="maximizeWin(event)"></span>
+            </div>
+            <h3>Education</h3>
+          </div>
+          <div class="win-body">
+            <h4>MS Computer Science — Comsats University, Islamabad (2016–2018)</h4>
+            <p>Focused on distributed systems, backend engineering, and cloud computing. Thesis on scalable backend services. Gained advanced skills in algorithms, cloud, and containerization.</p>
+            <div class="separator"></div>
+
+            <h4>BS Computer Science — University of Wah (2011–2015)</h4>
+            <p>Studied software engineering, programming, and computer networks. Completed projects on database management and web applications.</p>
+          </div>
+        </section>
+
+        <section class="window" id="terminal-window">
+          <div class="win-title">
+            <div class="controls">
+              <span class="control c-close" data-window="terminal-window" onclick="closeWin(event)"></span>
+              <span class="control c-min" data-window="terminal-window" onclick="minimizeWin(event)"></span>
+              <span class="control c-max" data-window="terminal-window" onclick="maximizeWin(event)"></span>
+            </div>
+            <h3>Terminal</h3>
+          </div>
+          <div class="win-body">
+            <div class="terminal" id="terminal">
+              $ echo "Welcome to portfolio"<br>
+              $ whoami<br>
+              User: syedhaseeb
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="rightcol">
+        <div class="section">
+          <h4>Contact</h4>
+          <div>📍 Islamabad, PK</div>
+          <div>📧 syedhaseeb16@gmail.com</div>
+          <div>📱 +92 315 1543724</div>
         </div>
-    </div>
-
-    <div id="contact" class="window" style="top: 140px; left: 140px;">
-        <div class="window-header">
-            <span>Contact</span>
-            <button onclick="closeWindow('contact')">✖</button>
+        <div class="section">
+          <h4>Skills</h4>
+          <div class="skill-list">
+            <div class="skill">Node.js</div>
+            <div class="skill">NestJS</div>
+            <div class="skill">AWS</div>
+            <div class="skill">Ubuntu Server</div>
+            <div class="skill">Docker</div>
+            <div class="skill">Postgres</div>
+            <div class="skill">MongoDB</div>
+            <div class="skill">CI/CD</div>
+            <div class="skill">Team Leadership</div>
+          </div>
         </div>
-        <div class="window-content">
-            <h2>Contact Me</h2>
-            <p>Email: <a href="mailto:syedhaseeb16@gmail.com">syedhaseeb16@gmail.com</a></p>
-            <p>GitHub: <a href="https://github.com/syedhaseeb16">syedhaseeb16</a></p>
-        </div>
+      </aside>
     </div>
+  </div>
 
-    <!-- Taskbar -->
-    <div id="taskbar">
-        <div id="start-btn" onclick="toggleStartMenu()"><i class="fas fa-windows"></i> Start</div>
-        <div id="clock"></div>
-    </div>
+  <script>
+    const PROJECTS = [
+      {id:'quri', title:'Quri (QR-based Restaurant POS)', year:'2024–Present', desc:'A QR-based restaurant management system with full POS integration, order handling, and reporting. Developed scalable Node.js backend, integrated with AWS, and supported multiple restaurants.'},
+      {id:'concise5', title:'Concise5 - Learning Platform', year:'2023–2025', desc:'A large-scale online learning platform with web and mobile apps, user management, and course analytics. Built microservices architecture with real-time notifications and cloud hosting.'},
+      {id:'bayez', title:'Bayez - Smart Parking (UAE)', year:'2024–2025', desc:'A parking management system supporting mobile apps, dashboards, and IoT sensors. Provided integrations with payment gateways and analytics dashboards.'},
+      {id:'edukan', title:'Edukan - E-commerce Migration', year:'2021–2023', desc:'Migrated a Laravel monolith to Node.js + React architecture with improved scalability. Enhanced checkout workflows, inventory management, and order tracking.'},
+      {id:'targets', title:'Targets - Sales & Distribution', year:'2022–2023', desc:'Real-time reporting & analytics solution for FMCG companies with dashboards and KPIs. Built with NestJS, PostgreSQL, and CI/CD pipelines.'},
+      {id:'psx', title:'PSX Alert', year:'2021', desc:'Stock portfolio tracker with alerts and market data integration. Provided real-time updates and custom alert notifications.'}
+    ];
+    const projectsList=document.getElementById('projectsList');
+    function renderProjects(){
+      projectsList.innerHTML = PROJECTS.map(p=>`<div class="project"><strong>${p.title}</strong> <em>${p.year}</em><br>${p.desc}</div>`).join('');
+    }
+    renderProjects();
 
-    <!-- Start Menu -->
-    <div id="start-menu">
-        <a href="#" onclick="openWindow('about')">About Me</a>
-        <a href="#" onclick="openWindow('projects')">Projects</a>
-        <a href="#" onclick="openWindow('skills')">Skills</a>
-        <a href="#" onclick="openWindow('services')">Services</a>
-        <a href="#" onclick="openWindow('contact')">Contact</a>
-        <a href="#" onclick="shutdown()">Shutdown</a>
-    </div>
+    function closeWin(e){document.getElementById(e.currentTarget.dataset.window).style.display='none'}
+    function minimizeWin(e){const el=document.getElementById(e.currentTarget.dataset.window); el.querySelector('.win-body').style.display='none'}
+    function maximizeWin(e){const el=document.getElementById(e.currentTarget.dataset.window); el.querySelector('.win-body').style.display='block'}
+    function openWindow(name){document.getElementById(name+'-window').style.display='block'}
+    function scrollToTerminal(){document.getElementById('terminal-window').scrollIntoView({behavior:'smooth'})}
 
-    <!-- Calculator Gadget -->
-    <div id="calculator">
-        <input type="text" id="calc-display" readonly>
-        <div class="grid" style="grid-template-columns: repeat(4, 1fr); gap: 5px;">
-            <button onclick="calc('7')">7</button><button onclick="calc('8')">8</button><button onclick="calc('9')">9</button><button onclick="calc('/')">/</button>
-            <button onclick="calc('4')">4</button><button onclick="calc('5')">5</button><button onclick="calc('6')">6</button><button onclick="calc('*')">*</button>
-            <button onclick="calc('1')">1</button><button onclick="calc('2')">2</button><button onclick="calc('3')">3</button><button onclick="calc('-')">-</button>
-            <button onclick="calc('0')">0</button><button onclick="calc('.')">.</button><button onclick="calc('=')">=</button><button onclick="calc('+')">+</button>
-        </div>
-    </div>
-
-    <script>
-        // Login
-        function login() {
-            document.getElementById('login-screen').classList.add('hidden');
-        }
-
-        // Open/Close Windows
-        function openWindow(id) {
-            document.getElementById(id).classList.add('active');
-        }
-        function closeWindow(id) {
-            document.getElementById(id).classList.remove('active');
-        }
-
-        // Toggle Start Menu
-        function toggleStartMenu() {
-            document.getElementById('start-menu').classList.toggle('active');
-        }
-
-        // Shutdown
-        function shutdown() {
-            if (confirm('Shutdown portfolio?')) {
-                document.getElementById('login-screen').classList.remove('hidden');
-            }
-        }
-
-        // Clock
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('clock').textContent = now.toLocaleTimeString();
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        // Draggable Windows
-        const windows = document.querySelectorAll('.window');
-        windows.forEach(win => {
-            const header = win.querySelector('.window-header');
-            let isDragging = false, currentX, currentY, initialX, initialY;
-
-            header.addEventListener('mousedown', startDragging);
-            document.addEventListener('mousemove', drag);
-            document.addEventListener('mouseup', stopDragging);
-
-            function startDragging(e) {
-                initialX = e.clientX - currentX;
-                initialY = e.clientY - currentY;
-                isDragging = true;
-            }
-
-            function drag(e) {
-                if (isDragging) {
-                    e.preventDefault();
-                    currentX = e.clientX - initialX;
-                    currentY = e.clientY - initialY;
-                    win.style.left = currentX + 'px';
-                    win.style.top = currentY + 'px';
-                }
-            }
-
-            function stopDragging() {
-                isDragging = false;
-            }
-
-            currentX = parseInt(win.style.left) || 0;
-            currentY = parseInt(win.style.top) || 0;
-        });
-
-        // Calculator
-        let calcExpression = '';
-        function calc(value) {
-            if (value === '=') {
-                calcExpression = eval(calcExpression);
-            } else {
-                calcExpression += value;
-            }
-            document.getElementById('calc-display').value = calcExpression;
-        }
-    </script>
+    document.getElementById('downloadCV').addEventListener('click', ()=>{
+      const link=document.createElement('a'); link.href='SyedHaseeb.pdf'; link.download='SyedHaseeb.pdf'; document.body.appendChild(link); link.click(); link.remove();
+    });
+  </script>
 </body>
 </html>
