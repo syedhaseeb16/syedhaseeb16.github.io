@@ -3,82 +3,213 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Syed Haseeb — Linux-Style Portfolio</title>
+  <title>Syed Haseeb — Portfolio</title>
   <style>
+    :root{
+      --bg:#071021;
+      --panel:#111827;
+      --panel-2:#1f2937;
+      --text:#e5eef8;
+      --muted:#9fb0c2;
+      --border:#263244;
+      --accent:#22c55e;
+      --accent-2:#38bdf8;
+      --shadow:0 12px 28px rgba(0,0,0,.28);
+    }
+    body.light{
+      --bg:#eef4fb;
+      --panel:#ffffff;
+      --panel-2:#f7fafc;
+      --text:#102033;
+      --muted:#526174;
+      --border:#d8e2ee;
+      --accent:#16a34a;
+      --accent-2:#0284c7;
+      --shadow:0 10px 24px rgba(15,23,42,.08);
+    }
     *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%;font-family:monospace, monospace; background:#0b0f12;color:#d9e2ec;overflow:auto}
-    .desktop{min-height:100vh;display:flex;flex-direction:column;padding:12px;gap:12px;background:#071021}
-    .topbar{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#111;border-radius:6px;position:sticky;top:0;z-index:10}
-    .topbar .brand{display:flex;gap:10px;align-items:center}
-    .logo{width:40px;height:40px;border-radius:50%;background:#0ea5a4;overflow:hidden}
-    .logo img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-    .brand h1{font-size:14px}
-    .tray{display:flex;gap:6px;align-items:center}
-    .tray button{background:#1a1a1a;border:1px solid #333;color:inherit;padding:4px 8px;border-radius:4px;cursor:pointer;font-size:12px}
-    .workspace{flex:1;display:flex;gap:12px;overflow:visible}
-    .sidebar{width:200px;background:#111;border-radius:6px;padding:10px;display:flex;flex-direction:column;gap:10px;font-size:13px;flex-shrink:0}
-    .name{font-weight:700;font-size:14px;margin-top:4px}
-    .meta{font-size:12px;color:#9fb0c2}
-    .side-links{margin-top:10px;display:flex;flex-direction:column;gap:4px}
-    .side-links a{padding:6px;border-radius:4px;text-decoration:none;color:inherit;background:#1a1a1a;border:1px solid #222;font-size:12px}
-    .main{flex:1;display:flex;flex-direction:column;gap:20px;min-width:0}
-    .window{width:100%;background:#111;border-radius:6px;border:1px solid #222;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.6);position:relative}
-    .win-title{display:flex;align-items:center;gap:6px;padding:6px 8px;background:#222;border-bottom:1px solid #333}
+    html,body{min-height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);scroll-behavior:smooth}
+    a{color:var(--accent-2);text-decoration:none}
+    .desktop{min-height:100vh;display:flex;flex-direction:column;padding:14px;gap:14px;background:linear-gradient(180deg,var(--bg),color-mix(in srgb, var(--bg) 82%, black 18%))}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;background:var(--panel);border:1px solid var(--border);border-radius:18px;position:sticky;top:10px;z-index:50;box-shadow:var(--shadow)}
+    .brand{display:flex;gap:12px;align-items:center;min-width:0}
+    .logo{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0}
+    .brand h1{font-size:1rem;line-height:1.2}
+    .brand p{font-size:.84rem;color:var(--muted)}
+    .tray{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    button,.chip{background:var(--panel-2);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:12px;cursor:pointer;font-size:.9rem;transition:.2s ease}
+    button:hover,.chip:hover{transform:translateY(-1px);border-color:var(--accent-2)}
+    .workspace{display:grid;grid-template-columns:260px minmax(0,1fr) 300px;gap:14px;align-items:start}
+    .sidebar,.rightcol,.window{background:var(--panel);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow)}
+    .sidebar,.rightcol{padding:16px}
+    .avatar{width:88px;height:88px;border-radius:20px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:14px}
+    .name{font-weight:700;font-size:1.2rem}
+    .meta{font-size:.95rem;color:var(--muted);margin-top:6px;line-height:1.5}
+    .side-links{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+    .side-links a{padding:11px 12px;border-radius:12px;background:var(--panel-2);border:1px solid var(--border);font-size:.92rem}
+    .main{display:flex;flex-direction:column;gap:14px;min-width:0}
+    .window{overflow:hidden}
+    .win-title{display:flex;align-items:center;gap:8px;padding:12px 14px;background:var(--panel-2);border-bottom:1px solid var(--border)}
     .controls{display:flex;gap:6px}
-    .control{width:10px;height:10px;border-radius:50%;display:inline-block}
-    .c-close{background:#ff5f56}
-    .c-min{background:#ffbd2e}
-    .c-max{background:#27c93f}
-    .win-title h3{flex:1;font-size:13px}
-    .win-body{padding:16px;font-size:13px;line-height:1.8}
-    .projects{display:flex;flex-direction:column;gap:14px}
-    .project{padding:14px;background:#1a1a1a;border-radius:4px;border:1px solid #222}
-    .rightcol{width:260px;background:#111;border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:10px;font-size:12px;flex-shrink:0}
-    .section{background:#1a1a1a;padding:10px;border-radius:4px;border:1px solid #222}
-    .section h4{font-size:12px;margin-bottom:6px}
-    .skill-list{display:flex;flex-wrap:wrap;gap:6px}
-    .skill{font-size:11px;padding:4px 6px;border-radius:4px;background:#222}
-    .terminal{height:150px;background:#000;border-radius:6px;padding:10px;font-family:monospace;font-size:12px;color:#9fb0c2;overflow:auto}
-    .separator{margin:14px 0;border-bottom:1px dashed #333}
-    @media (max-width:900px){.sidebar{display:none}.rightcol{display:none}}
+    .control{width:11px;height:11px;border-radius:50%;display:inline-block}
+    .c-close{background:#ff5f56}.c-min{background:#ffbd2e}.c-max{background:#27c93f}
+    .win-title h3{font-size:1rem;flex:1}
+    .win-body{padding:18px}
+    .summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .card,.project,.section{background:var(--panel-2);border:1px solid var(--border);border-radius:16px;padding:14px}
+    .card strong{display:block;font-size:1.1rem;margin-bottom:4px}
+    .card span{font-size:.9rem;color:var(--muted)}
+    .timeline{display:flex;flex-direction:column;gap:14px}
+    .item h4{font-size:1rem;margin-bottom:4px}
+    .item .period{display:block;font-size:.88rem;color:var(--accent-2);margin-bottom:10px}
+    .item p,.item li,.project p{font-size:.95rem;line-height:1.7;color:var(--text)}
+    .item ul{padding-left:18px;display:grid;gap:6px}
+    .projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .project h4{margin-bottom:6px}
+    .project .stack{display:inline-block;margin:10px 0 8px;font-size:.82rem;color:var(--muted)}
+    .rightcol{display:flex;flex-direction:column;gap:12px}
+    .section h4{font-size:.95rem;margin-bottom:10px}
+    .skill-list{display:flex;flex-wrap:wrap;gap:8px}
+    .skill{font-size:.8rem;padding:7px 9px;border-radius:999px;background:color-mix(in srgb, var(--panel) 68%, transparent);border:1px solid var(--border)}
+    .terminal{background:#020617;color:#b7c6d8;border-radius:16px;padding:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85rem;line-height:1.8;overflow:auto}
+    .contact-line{display:block;color:var(--text);margin-bottom:6px}
+    .section p{font-size:.92rem;line-height:1.65;color:var(--muted)}
+    .footer-note{font-size:.85rem;color:var(--muted);margin-top:8px}
+
+    @media (max-width: 1180px){
+      .workspace{grid-template-columns:220px minmax(0,1fr)}
+      .rightcol{grid-column:1/-1}
+    }
+    @media (max-width: 860px){
+      .workspace{grid-template-columns:1fr}
+      .sidebar,.rightcol{order:2}
+      .summary,.projects{grid-template-columns:1fr}
+      .topbar{flex-direction:column;align-items:flex-start}
+      .tray{width:100%;justify-content:flex-start}
+    }
+    @media (max-width: 520px){
+      .desktop{padding:10px}
+      .topbar,.sidebar,.rightcol,.window{border-radius:16px}
+      .win-body{padding:14px}
+      button,.chip{width:100%;text-align:center}
+      .tray{display:grid;grid-template-columns:1fr 1fr}
+    }
   </style>
 </head>
 <body>
   <div class="desktop">
     <div class="topbar">
       <div class="brand">
-        <div class="logo"><img src="your-photo.jpg" alt="Profile Photo"></div>
-        <h1>Syed Haseeb — Portfolio</h1>
+        <div class="logo">SH</div>
+        <div>
+          <h1>Syed Haseeb-ul-Hussan</h1>
+          <p>Backend Engineer • Node.js • NestJS • Databases</p>
+        </div>
       </div>
       <div class="tray">
-        <button id="downloadCV">CV</button>
-        <button onclick="openWindow('projects')">Projects</button>
-        <button onclick="openWindow('experience')">Experience</button>
-        <button onclick="openWindow('education')">Education</button>
+        <button onclick="scrollToSection('projects-window')">Projects</button>
+        <button onclick="scrollToSection('experience-window')">Experience</button>
+        <button onclick="scrollToSection('education-window')">Education</button>
+        <button id="themeToggle">Toggle Dark / Light</button>
       </div>
     </div>
 
     <div class="workspace">
       <aside class="sidebar">
-        <div class="name">Syed Haseeb‑ul‑Hussan</div>
-        <div class="meta">Backend • DevOps • Team Lead</div>
+        <div class="avatar">SH</div>
+        <div class="name">Syed Haseeb-ul-Hussan</div>
+        <div class="meta">Backend Engineer with experience in scalable APIs, admin portals, AI-enabled products, and business management platforms.</div>
         <div class="side-links">
-          <a href="#" onclick="openWindow('projects')">Projects</a>
-          <a href="#" onclick="openWindow('experience')">Experience</a>
-          <a href="#" onclick="openWindow('education')">Education</a>
-          <a href="#" onclick="openWindow('contact')">Contact</a>
-          <a href="#" onclick="scrollToTerminal()">Terminal</a>
+          <a href="#projects-window">Projects</a>
+          <a href="#experience-window">Experience</a>
+          <a href="#education-window">Education</a>
+          <a href="#terminal-window">Terminal</a>
         </div>
       </aside>
 
       <main class="main">
+        <section class="window">
+          <div class="win-title">
+            <div class="controls"><span class="control c-close"></span><span class="control c-min"></span><span class="control c-max"></span></div>
+            <h3>Overview</h3>
+          </div>
+          <div class="win-body">
+            <div class="summary">
+              <div class="card"><strong>Current Role</strong><span>Backend Engineer at Sarmaaya Financial</span></div>
+              <div class="card"><strong>Core Stack</strong><span>Node.js, NestJS, PostgreSQL, MySQL, MongoDB</span></div>
+              <div class="card"><strong>Focus</strong><span>Scalable backends, admin portals, mobile support, responsive systems</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="window" id="experience-window">
+          <div class="win-title">
+            <div class="controls"><span class="control c-close"></span><span class="control c-min"></span><span class="control c-max"></span></div>
+            <h3>Experience</h3>
+          </div>
+          <div class="win-body">
+            <div class="timeline">
+              <div class="item card">
+                <h4>Sarmaaya Financial — Backend Engineer</h4>
+                <span class="period">2025 – Present</span>
+                <p>Currently working at Sarmaaya Financial, building backend systems and product features for fintech and business platforms.</p>
+                <ul>
+                  <li>Develop backend services using Node.js, NestJS, and relational/non-relational databases.</li>
+                  <li>Build and maintain APIs, admin portals, and product integrations for web and mobile platforms.</li>
+                  <li>Improve system reliability, fix production issues, and deliver responsive, user-focused updates.</li>
+                </ul>
+              </div>
+
+              <div class="item card">
+                <h4>MultiSyn Tech — Team Lead, Backend</h4>
+                <span class="period">2023 – 2025</span>
+                <p>Led a team of developers delivering scalable backend systems. Responsible for architecture planning, code reviews, and DevOps oversight.</p>
+                <ul>
+                  <li>Guided the team through the full software development lifecycle.</li>
+                  <li>Worked with Node.js, NestJS, PostgreSQL, and AWS.</li>
+                  <li>Mentored junior developers and ensured on-time project delivery.</li>
+                </ul>
+              </div>
+
+              <div class="item card">
+                <h4>IVY Interactive Solutions — Senior Node.js Developer</h4>
+                <span class="period">2022 – 2023</span>
+                <p>Focused on building efficient APIs and improving backend scalability.</p>
+                <ul>
+                  <li>Developed REST APIs and integrated them with frontend and mobile systems.</li>
+                  <li>Optimized database queries and reduced response times.</li>
+                  <li>Implemented CI/CD pipelines for automation.</li>
+                </ul>
+              </div>
+
+              <div class="item card">
+                <h4>Heuristify / NSTP — Backend Developer</h4>
+                <span class="period">2020 – 2022</span>
+                <p>Worked on multiple backend modules supporting education and research platforms.</p>
+                <ul>
+                  <li>Developed Node.js services with MongoDB.</li>
+                  <li>Deployed applications on Ubuntu servers.</li>
+                  <li>Ensured system security and uptime.</li>
+                </ul>
+              </div>
+
+              <div class="item card">
+                <h4>Sir Syed Educational Institute — IT Manager</h4>
+                <span class="period">2016 – 2019</span>
+                <p>Managed IT infrastructure for an educational institute.</p>
+                <ul>
+                  <li>Oversaw networking and server maintenance.</li>
+                  <li>Upgraded systems and introduced new technologies.</li>
+                  <li>Provided training and ongoing support to staff and students.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section class="window" id="projects-window">
           <div class="win-title">
-            <div class="controls">
-              <span class="control c-close" data-window="projects-window" onclick="closeWin(event)"></span>
-              <span class="control c-min" data-window="projects-window" onclick="minimizeWin(event)"></span>
-              <span class="control c-max" data-window="projects-window" onclick="maximizeWin(event)"></span>
-            </div>
+            <div class="controls"><span class="control c-close"></span><span class="control c-min"></span><span class="control c-max"></span></div>
             <h3>Projects</h3>
           </div>
           <div class="win-body">
@@ -86,86 +217,41 @@
           </div>
         </section>
 
-        <section class="window" id="experience-window">
-          <div class="win-title">
-            <div class="controls">
-              <span class="control c-close" data-window="experience-window" onclick="closeWin(event)"></span>
-              <span class="control c-min" data-window="experience-window" onclick="minimizeWin(event)"></span>
-              <span class="control c-max" data-window="experience-window" onclick="maximizeWin(event)"></span>
-            </div>
-            <h3>Experience</h3>
-          </div>
-          <div class="win-body">
-            <h4>MultiSyn Tech — Team Lead, Backend (2023 – 2025)</h4>
-            <p>Led a team of developers delivering scalable backend systems. Responsible for architecture planning, code reviews, and DevOps oversight.</p>
-            <ul>
-              <li>Guided team through full software development lifecycle.</li>
-              <li>Worked with Node.js, NestJS, PostgreSQL, and AWS.</li>
-              <li>Mentored junior developers and ensured project delivery on time.</li>
-            </ul>
-            <div class="separator"></div>
-
-            <h4>IVY Interactive Solutions — Senior Node.js Developer (2022 – 2023)</h4>
-            <p>Focused on building efficient APIs and improving backend scalability.</p>
-            <ul>
-              <li>Developed REST APIs and integrated with frontend/mobile systems.</li>
-              <li>Optimized database queries and reduced response times.</li>
-              <li>Implemented CI/CD pipelines for automation.</li>
-            </ul>
-            <div class="separator"></div>
-
-            <h4>Heuristify / NSTP — Backend Developer (2020 – 2022)</h4>
-            <p>Worked on multiple backend modules supporting education and research platforms.</p>
-            <ul>
-              <li>Developed Node.js services with MongoDB.</li>
-              <li>Deployed applications on Ubuntu servers.</li>
-              <li>Ensured system security and uptime.</li>
-            </ul>
-            <div class="separator"></div>
-
-            <h4>Sir Syed Educational Institute — IT Manager (2016 – 2019)</h4>
-            <p>Managed IT infrastructure for an educational institute.</p>
-            <ul>
-              <li>Oversaw networking and server maintenance.</li>
-              <li>Upgraded systems and introduced new technologies.</li>
-              <li>Provided training and ongoing support to staff and students.</li>
-            </ul>
-          </div>
-        </section>
-
         <section class="window" id="education-window">
           <div class="win-title">
-            <div class="controls">
-              <span class="control c-close" data-window="education-window" onclick="closeWin(event)"></span>
-              <span class="control c-min" data-window="education-window" onclick="minimizeWin(event)"></span>
-              <span class="control c-max" data-window="education-window" onclick="maximizeWin(event)"></span>
-            </div>
+            <div class="controls"><span class="control c-close"></span><span class="control c-min"></span><span class="control c-max"></span></div>
             <h3>Education</h3>
           </div>
           <div class="win-body">
-            <h4>MS Computer Science — Comsats University, Islamabad (2016–2018)</h4>
-            <p>Focused on distributed systems, backend engineering, and cloud computing. Thesis on scalable backend services. Gained advanced skills in algorithms, cloud, and containerization.</p>
-            <div class="separator"></div>
-
-            <h4>BS Computer Science — University of Wah (2011–2015)</h4>
-            <p>Studied software engineering, programming, and computer networks. Completed projects on database management and web applications.</p>
+            <div class="card">
+              <h4>MS Computer Science — COMSATS University, Islamabad</h4>
+              <span class="period">2016 – 2018</span>
+              <p>Focused on distributed systems, backend engineering, and cloud computing.</p>
+            </div>
+            <br>
+            <div class="card">
+              <h4>BS Computer Science — University of Wah</h4>
+              <span class="period">2011 – 2015</span>
+              <p>Studied software engineering, programming, databases, and computer networks.</p>
+            </div>
           </div>
         </section>
 
         <section class="window" id="terminal-window">
           <div class="win-title">
-            <div class="controls">
-              <span class="control c-close" data-window="terminal-window" onclick="closeWin(event)"></span>
-              <span class="control c-min" data-window="terminal-window" onclick="minimizeWin(event)"></span>
-              <span class="control c-max" data-window="terminal-window" onclick="maximizeWin(event)"></span>
-            </div>
+            <div class="controls"><span class="control c-close"></span><span class="control c-min"></span><span class="control c-max"></span></div>
             <h3>Terminal</h3>
           </div>
           <div class="win-body">
-            <div class="terminal" id="terminal">
-              $ echo "Welcome to portfolio"<br>
+            <div class="terminal">
               $ whoami<br>
-              User: syedhaseeb
+              syedhaseeb<br><br>
+              $ current_role<br>
+              Backend Engineer @ Sarmaaya Financial<br><br>
+              $ skills --top<br>
+              Node.js • NestJS • PostgreSQL • MySQL • MongoDB • APIs • Admin Portals<br><br>
+              $ portfolio --status<br>
+              Updated with latest experience, new projects, dark/light mode, and mobile responsiveness.
             </div>
           </div>
         </section>
@@ -174,99 +260,121 @@
       <aside class="rightcol">
         <div class="section">
           <h4>Contact</h4>
-          <div>📍 Islamabad, PK</div>
-          <div>📧 syedhaseeb16@gmail.com</div>
-          <div>📱 +92 315 1543724</div>
+          <span class="contact-line">📍 Islamabad, Pakistan</span>
+          <span class="contact-line">📧 syedhaseeb16@gmail.com</span>
+          <span class="contact-line">📱 +92 315 1543724</span>
         </div>
-<div class="section">
-  <h4>Technical Skills</h4>
-  <div class="skill-list">
-    <div class="skill">Node.js</div>
-    <div class="skill">NestJS</div>
-    <div class="skill">PHP</div>
-    <div class="skill">Laravel</div>
-    <div class="skill">React.js</div>
-    <div class="skill">JavaScript (ES6+)</div>
-    <div class="skill">HTML</div>
-    <div class="skill">CSS</div>
-    <div class="skill">PostgreSQL</div>
-    <div class="skill">MySQL</div>
-    <div class="skill">MongoDB</div>
-    <div class="skill">Postman (API Testing)</div>
-    <div class="skill">CI/CD Pipelines</div>
-    <div class="skill">Git & GitHub</div>
-    <div class="skill">Docker</div>
-    <div class="skill">Ubuntu Server</div>
-  </div>
-</div>
 
-<div class="section">
-  <h4>Soft Skills</h4>
-  <div class="skill-list">
-    <div class="skill">Team Leadership</div>
-    <div class="skill">Project Management</div>
-    <div class="skill">Mentoring & Teaching</div>
-    <div class="skill">Problem-Solving</div>
-    <div class="skill">Communication</div>
-    <div class="skill">Collaboration</div>
-    <div class="skill">Agile & Scrum</div>
-    <div class="skill">Tools: Jira, ClickUp, Trello</div>
-  </div>
-</div>
+        <div class="section">
+          <h4>Technical Skills</h4>
+          <div class="skill-list">
+            <div class="skill">Node.js</div>
+            <div class="skill">NestJS</div>
+            <div class="skill">JavaScript</div>
+            <div class="skill">TypeScript</div>
+            <div class="skill">PostgreSQL</div>
+            <div class="skill">MySQL</div>
+            <div class="skill">MongoDB</div>
+            <div class="skill">REST APIs</div>
+            <div class="skill">Admin Portals</div>
+            <div class="skill">CI/CD</div>
+            <div class="skill">Docker</div>
+            <div class="skill">AWS</div>
+            <div class="skill">Responsive UI</div>
+          </div>
+        </div>
 
-<div class="section">
-  <h4>Cloud & Hosting Skills</h4>
-  <div class="skill-list">
-    <div class="skill">AWS (EC2, S3, IAM)</div>
-    <div class="skill">Google Cloud Platform (GCP)</div>
-    <div class="skill">cPanel & vPanel</div>
-    <div class="skill">Ubuntu CLI & Console</div>
-    <div class="skill">XAMPP / WAMP</div>
-    <div class="skill">Server Deployment & Management</div>
-  </div>
-</div>
-
-        
+        <div class="section">
+          <h4>Product Highlights</h4>
+          <p>Built fintech, expense tracking, committee management, showroom, and distribution products with business-focused features and ongoing support.</p>
+        </div>
       </aside>
     </div>
   </div>
 
   <script>
     const PROJECTS = [
-      {id:'quri', title:'Quri (QR-based Restaurant POS)', year:'2024–Present', desc:'A QR-based restaurant management system with full POS integration, order handling, and reporting. Developed scalable Node.js backend, integrated with AWS, and supported multiple restaurants.'},
-      {id:'concise5', title:'Concise5 - Learning Platform', year:'2023–2025', desc:'A large-scale online learning platform with web and mobile apps, user management, and course analytics. Built microservices architecture with real-time notifications and cloud hosting.'},
-      {id:'bayez', title:'Bayez - Smart Parking (UAE)', year:'2024–2025', desc:'A parking management system supporting mobile apps, dashboards, and IoT sensors. Provided integrations with payment gateways and analytics dashboards.'},
-      {id:'edukan', title:'Edukan - E-commerce Migration', year:'2021–2023', desc:'Migrated a Laravel monolith to Node.js + React architecture with improved scalability. Enhanced checkout workflows, inventory management, and order tracking.'},
-      {id:'targets', title:'Targets - Sales & Distribution', year:'2022–2023', desc:'Real-time reporting & analytics solution for FMCG companies with dashboards and KPIs. Built with NestJS, PostgreSQL, and CI/CD pipelines.'},
-      {id:'psx', title:'PSX Alert', year:'2021', desc:'Stock portfolio tracker with alerts and market data integration. Provided real-time updates and custom alert notifications.'},
-      {id:'tea', title:'TEA is a teaching platform that enables teachers to apply online, while providing management with tools to easily filter and select candidates based on given criteria..'},
       {
-    id: 'buraak',
-    title: 'Buraak',
-    desc: 'Buraak is a riding application built with Node.js, React.js, and PostgreSQL. It integrates geospatial features and Google APIs for location tracking and route optimization.'
-  },
-  {
-    id: 'tasali',
-    title: 'Tasali',
-    desc: 'Tasali is a product verification solution that uses QR codes to validate product authenticity, ensuring security and trust for customers and businesses.'
-  }
-      
+        title: 'ZAR',
+        year: '2025 – Present',
+        stack: 'Node.js • NestJS • Fintech Platform',
+        link: 'https://zar.sarmaaya.pk/login',
+        desc: 'Contributed to the backend of ZAR, a Sarmaaya product, by building and maintaining APIs and platform features for a finance-focused web application.'
+      },
+      {
+        title: 'Sarmaaya',
+        year: '2025 – Present',
+        stack: 'Backend APIs • Databases • Product Engineering',
+        link: 'https://sarmaaya.pk/',
+        desc: 'Worked on backend development for Sarmaaya Financial, supporting platform functionality, business logic, and product improvements.'
+      },
+      {
+        title: 'KYE — Know Your Expenses',
+        year: '2025',
+        stack: 'Backend • Android Support • AI-based Expense Tracking',
+        link: 'https://knowyourexpenses.com/',
+        desc: 'Worked on the backend for an AI-based expense tracking application, enabling expense analysis, tracking workflows, and mobile app support.'
+      },
+      {
+        title: 'Kameeti',
+        year: '2025',
+        stack: 'Backend • Admin Portal • Maintenance',
+        link: 'https://kametiplus.com/',
+        desc: 'Built and maintained features for a kameeti management platform, including admin portal updates, issue fixing, and improvements for non-working buttons and flows.'
+      },
+      {
+        title: 'Distribution Management System',
+        year: '2024 – 2025',
+        stack: 'Supply Chain • Order Booking • Distributor Operations',
+        link: '',
+        desc: 'A complete supply chain solution for order bookers and distributors with rich operational features for managing distribution workflows end to end.'
+      },
+      {
+        title: 'Showroom Management System',
+        year: '2024 – 2025',
+        stack: 'Inventory • Cars • Credit/Cash • Responsive UI',
+        link: '',
+        desc: 'Built a showroom management system to manage inventory, cars, shareable links, credit and cash handling, and expenses. Updated HTML, added dark and light mode, and ensured full mobile responsiveness.'
+      },
+      {
+        title: 'Quri (QR-based Restaurant POS)',
+        year: '2024 – Present',
+        stack: 'Node.js • AWS • POS',
+        link: '',
+        desc: 'A QR-based restaurant management system with POS integration, order handling, and reporting for multiple restaurants.'
+      },
+      {
+        title: 'Bayez — Smart Parking (UAE)',
+        year: '2024 – 2025',
+        stack: 'Dashboards • Integrations • Analytics',
+        link: '',
+        desc: 'A parking management system supporting mobile apps, dashboards, and third-party integrations.'
+      }
     ];
-    const projectsList=document.getElementById('projectsList');
-    function renderProjects(){
-      projectsList.innerHTML = PROJECTS.map(p=>`<div class="project"><strong>${p.title}</strong> <em>${p.year}</em><br>${p.desc}</div>`).join('');
-    }
-    renderProjects();
 
-    function closeWin(e){document.getElementById(e.currentTarget.dataset.window).style.display='none'}
-    function minimizeWin(e){const el=document.getElementById(e.currentTarget.dataset.window); el.querySelector('.win-body').style.display='none'}
-    function maximizeWin(e){const el=document.getElementById(e.currentTarget.dataset.window); el.querySelector('.win-body').style.display='block'}
-    function openWindow(name){document.getElementById(name+'-window').style.display='block'}
-    function scrollToTerminal(){document.getElementById('terminal-window').scrollIntoView({behavior:'smooth'})}
+    const projectsList = document.getElementById('projectsList');
+    projectsList.innerHTML = PROJECTS.map(project => `
+      <article class="project">
+        <h4>${project.link ? `<a href="${project.link}" target="_blank" rel="noopener noreferrer">${project.title}</a>` : project.title}</h4>
+        <small>${project.year}</small><br>
+        <span class="stack">${project.stack}</span>
+        <p>${project.desc}</p>
+      </article>
+    `).join('');
 
-    document.getElementById('downloadCV').addEventListener('click', ()=>{
-      const link=document.createElement('a'); link.href='SyedHaseeb.pdf'; link.download='SyedHaseeb.pdf'; document.body.appendChild(link); link.click(); link.remove();
+    const body = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    if(savedTheme === 'light') body.classList.add('light');
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('light');
+      localStorage.setItem('portfolio-theme', body.classList.contains('light') ? 'light' : 'dark');
     });
+
+    function scrollToSection(id){
+      document.getElementById(id)?.scrollIntoView({behavior:'smooth', block:'start'});
+    }
   </script>
 </body>
 </html>
